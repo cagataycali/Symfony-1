@@ -1,3 +1,9 @@
+blog:
+    resource: "@BlogBundle/Resources/config/routing.yml"
+    prefix:   /
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+
+# todo : routing yml eklenmemiş (fos user kurulumu )
