@@ -32,6 +32,11 @@ class User extends BaseUser
     private $begeniler;
 
     /**
+     * @ORM\OneToMany(targetEntity="BlogBundle\Entity\Yorum" , mappedBy="user")
+     */
+    private $yorumlar;
+
+    /**
      * @ORM\OneToMany(targetEntity="Takip",mappedBy="takip_eden")
      */
     private $takip_edenler;
@@ -42,11 +47,13 @@ class User extends BaseUser
     private $takip_edilenler;
 
 
+
     public function __construct()
     {
         parent::__construct();
 
         $this->yazilar=new ArrayCollection();
+        $this->yorumlar =new ArrayCollection();
         $this->takip_edenler=new ArrayCollection();
         $this->takip_edilenler=new ArrayCollection();
         $this->begeniler = new ArrayCollection();
@@ -189,5 +196,39 @@ class User extends BaseUser
     public function getBegeniler()
     {
         return $this->begeniler;
+    }
+
+    /**
+     * Add yorumlar
+     *
+     * @param \BlogBundle\Entity\Yorum $yorumlar
+     *
+     * @return User
+     */
+    public function addYorumlar(\BlogBundle\Entity\Yorum $yorumlar)
+    {
+        $this->yorumlar[] = $yorumlar;
+
+        return $this;
+    }
+
+    /**
+     * Remove yorumlar
+     *
+     * @param \BlogBundle\Entity\Yorum $yorumlar
+     */
+    public function removeYorumlar(\BlogBundle\Entity\Yorum $yorumlar)
+    {
+        $this->yorumlar->removeElement($yorumlar);
+    }
+
+    /**
+     * Get yorumlar
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getYorumlar()
+    {
+        return $this->yorumlar;
     }
 }

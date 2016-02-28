@@ -7,58 +7,92 @@
 {% block body %}
     <center>
 
-    {% if app.user %}
-        <form action="{{ path('blog_yazi_ekle') }}" method="post">
-            <textarea name="yazi_icerik"  cols="30" rows="10" placeholder="Lutfen yazi giriniz."></textarea>
-            <br>
-            <button type="submit">Gönder</button>
-        </form>
 
-   {% else %}
-        <b>Paylaşım yapabilmek için lütfen giriş yapınız !</b>
-        <a href="{{ path('fos_user_security_login') }}">Giriş yap</a>
+        {% for tip, mesajlar in app.session.flashbag.all %}
 
-    {% endif %}
+            <div class="alert alert-{{ (tip == 'error' ? 'danger' : 'success') }} alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 
-    <br>
-    <br>
-    <hr>
+                {% for mesaj in mesajlar %}
 
-    {% for y in yazilar %}
+                    {% if tip == 'error' %}
+                        <i class="icon-exclamation-sign"></i>
+                        <strong>Dikkat!</strong>
+                    {% else %}
+                        <i class="icon-check"></i>
+                        <strong>Bilgi:</strong>
+                    {% endif %}
 
-       <b>{{ y.user.username }} : </b>
-        {{ y.icerik }}
+                    {{ mesaj|raw }}
 
 
+                {% endfor %}
 
-        {% if y.user == app.user %}
-            <a href="{{ path('blog_yazi_sil',{'id':y.id })}}">Yazimi Sil</a>
+            </div>
+
+        {% endfor %}
+
+
+        {% if app.user %}
+            <form action="{{ path('blog_yazi_ekle') }}" method="post">
+                <textarea name="yazi_icerik"  cols="30" rows="10" placeholder="Lutfen yazi giriniz."></textarea>
+                <br>
+                <button type="submit">Gönder</button>
+            </form>
+
+        {% else %}
+            <b>Paylaşım yapabilmek için lütfen giriş yapınız !</b>
+            <a href="{{ path('fos_user_security_login') }}">Giriş yap</a>
+
         {% endif %}
+
         <br>
+        <br>
+        <hr>
+
+        {% for y in yazilar %}
+
+            <a href="{{ path('blog_profil',{ 'id':y.user.id }) }}">  <b>{{ y.user.username }} : </b>  </a>
+            {{ y.icerik }}
+
+            Begeni sayısı <br>
+            {{ y.begeniler|length }}
+            {% for b in y.begeniler if b.user == app.user %}
+
+                    Bunu Begendin
+
+                {% else %}
+              Bunu beğen!!
+
+            {% endfor %}
+
+            {% if y.user == app.user %}
+                <a href="{{ path('blog_yazi_sil',{'id':y.id })}}">Yazimi Sil</a>
+            {% endif %}
+            <br>
             <b style="color:darkred;">yorumlar :<br></b>
 
 
-        {% for k in y.yorumlar  %}
-            {{ k.icerik }}
-               {% if k.user == app.user %}
-                   <a href="{{ path('blog_yorum_sil',{'id':k.id })}}">Yorumu Sil</a>
-               {% endif %}
+            {% for k in y.yorumlar  %}
+                {{ k.icerik }}
+                {% if k.user == app.user %}
+                    <a href="{{ path('blog_yorum_sil',{'id':k.id })}}">Yorumu Sil</a>
+                {% endif %}
+                <br>
+            {% endfor %}
 
-<br>
+            <form action="{{ path('blog_yazi_yorum') }}" method="post">
+                <input type="text" name="yorum" placeholder="yorum gir..">
+                <input type="hidden" name="yazi_id" value="{{ y.id }}">
+                <button type="submit">Yorum Gönder</button>
+            </form>
+
+            <hr>
+            <br>
+
+
         {% endfor %}
 
-        <form action="{{ path('blog_yazi_yorum') }}" method="post">
-            <input type="text" name="yorum" placeholder="yorum gir..">
-            <input type="hidden" name="yazi_id" value="{{ y.id }}">
-            <button type="submit">Yorum Gönder</button>
-        </form>
-
-        <hr>
-        <br>
-
-
-    {% endfor %}
-
-</center>
+    </center>
 
 {% endblock %}

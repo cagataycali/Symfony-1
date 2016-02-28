@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block title  %}
+    Anasayfa
+{% endblock %}
+
+{% block body %}
+    <center>
+
+         üyenin listeleneceği yer <br>
+
+        <b>{{ profiller.username }}</b>
+        <br>
+        <a href="">Takip Et</a>
+
+        {% for y in profiller.username  %}
+
+            {{ y.yazi }}
+
+        {% endfor %}
+
+    </center>
+{% endblock %}
