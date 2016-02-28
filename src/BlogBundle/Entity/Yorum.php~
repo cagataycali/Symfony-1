@@ -34,5 +34,62 @@ class Yorum
      */
     private $yazi;
 
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set icerik
+     *
+     * @param string $icerik
+     *
+     * @return Yorum
+     */
+    public function setIcerik($icerik)
+    {
+        $this->icerik = $icerik;
+
+        return $this;
+    }
+
+    /**
+     * Get icerik
+     *
+     * @return string
+     */
+    public function getIcerik()
+    {
+        return $this->icerik;
+    }
+
+    /**
+     * Set yazi
+     *
+     * @param \BlogBundle\Entity\Yazi $yazi
+     *
+     * @return Yorum
+     */
+    public function setYazi(\BlogBundle\Entity\Yazi $yazi = null)
+    {
+        $this->yazi = $yazi;
+
+        return $this;
+    }
+
+    /**
+     * Get yazi
+     *
+     * @return \BlogBundle\Entity\Yazi
+     */
+    public function getYazi()
+    {
+        return $this->yazi;
+    }
+}

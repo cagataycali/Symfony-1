@@ -1,3 +1,12 @@
 blog_homepage:
     path:     /
     defaults: { _controller: BlogBundle:Default:index }
+
+blog_yazi_ekle:
+    path:     /yazi-ekle
+    defaults: { _controller: BlogBundle:Default:yaziEkle }
+
+
+blog_yazi_sil:
+    path:     /{id}/yazi-sil
+    defaults: { _controller: BlogBundle:Default:yaziSil}

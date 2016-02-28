@@ -1,1 +1,32 @@
-Hello World!
+{% extends "base.html.twig" %}
+
+{% block title  %}
+    Anasayfa
+{% endblock %}
+
+{% block body %}
+
+    <form action="{{ path('blog_yazi_ekle') }}" method="post">
+        <input type="text" name="yazi_icerik" placeholder="Yazinizi yazınız..">
+        <button type="submit">Gönder</button>
+    </form>
+    <br>
+    <br>
+    <hr>
+
+    {% for y in yazilar %}
+
+       <b>{{ y.user.username }} : </b>
+        {{ y.icerik }}
+        {% if y.user == app.user %}
+            <a href="{{ path('blog_yazi_sil',{'id':y.id })}}">Yazimi Sil</a>
+        {% endif %}
+        <br>
+            yorumlar
+        <hr>
+        <br>
+
+
+    {% endfor %}
+
+{% endblock %}

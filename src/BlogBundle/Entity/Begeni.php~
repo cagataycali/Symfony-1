@@ -31,5 +31,38 @@ class Begeni
 
 
 
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set yazi
+     *
+     * @param \BlogBundle\Entity\Yazi $yazi
+     *
+     * @return Begeni
+     */
+    public function setYazi(\BlogBundle\Entity\Yazi $yazi = null)
+    {
+        $this->yazi = $yazi;
+
+        return $this;
+    }
+
+    /**
+     * Get yazi
+     *
+     * @return \BlogBundle\Entity\Yazi
+     */
+    public function getYazi()
+    {
+        return $this->yazi;
+    }
+}
