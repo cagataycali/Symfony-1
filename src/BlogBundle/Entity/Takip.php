@@ -28,7 +28,7 @@ class Takip
     private $takip_eden;
 
     /**
-     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\User",inversedBy="takip_edilenler")
+     * @ORM\ManyToOne(targetEntity="User",inversedBy="takip_edilenler")
      * @ORM\JoinColumn(name="takip_edilen_id",referencedColumnName="id",onDelete="CASCADE")
      */
     private $takip_edilen;

@@ -28,14 +28,13 @@ blog_yazi_unlike:
     defaults: { _controller: BlogBundle:Default:yaziUnlike }
 
 blog_profil:
-    path:     /{id}/profil
+    path:     /profil/{username}
     defaults: { _controller: BlogBundle:Default:profil }
 
-
 blog_takip_et:
-    path:     /{id}/takip-et
+    path:     /takip-et/{username}
     defaults: { _controller: BlogBundle:Default:takipEt }
 
 blog_takip_bırak:
-    path:     /{id}/takip-birak
+    path:     /takip-birak/{username}
     defaults: { _controller: BlogBundle:Default:takipBirak}

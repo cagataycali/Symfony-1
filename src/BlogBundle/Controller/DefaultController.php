@@ -19,10 +19,15 @@ class DefaultController extends Controller
          */
         $em = $this->getDoctrine()->getManager();
 
-        /**
-         * yazilari bulalım
-         */
-        $yazi = $em->getRepository('BlogBundle:Yazi')->findAll();
+        $yazi = $em->createQueryBuilder()
+            ->select('y') #yıldız (*) secemk için
+            ->from('BlogBundle:Yazi','y') #Yazıların hepsını alıp t ye attı
+            ->leftJoin('BlogBundle:Takip','t','WITH','t.takip_edilen = y.user') #butun takıp tablosunu t ye at,yazi daki user_id = BENNİM TAKİP ETTİGİM KISILERIN IDSI
+            ->where('t.takip_eden =:takip_eden OR y.user=:takip_eden')
+            ->setParameter('takip_eden',$this->getUser())
+            ->orderBy('y.id','DESC') # TODO : HEM CREATED HEM İD
+            ->getQuery()
+            ->getResult();
 
         return $this->render('BlogBundle:Default:index.html.twig',array('yazilar'=>$yazi));
     }
@@ -197,14 +202,14 @@ class DefaultController extends Controller
     }
 
 
-    public function profilAction($id)
+    public function profilAction($username)
     {
         /**
          * doctine çağırıyoruz
          */
         $em=$this->getDoctrine()->getManager();
 
-        $profil=$em->getRepository('BlogBundle:User')->find($id);
+        $profil=$em->getRepository('BlogBundle:User')->findOneBy(array('username'=>$username));
         $takip = $em->getRepository('BlogBundle:Takip')->findOneBy(array('takip_eden'=>$this->getUser(),'takip_edilen'=>$profil));
 
         if($takip)
@@ -224,7 +229,7 @@ class DefaultController extends Controller
         return $this->render('BlogBundle:Default:profil.html.twig', array('profil'=>$profil,'takip_ediyorsun'=>$takip_ediyorsun));
 
     }
-    public function takipEtAction($id)
+    public function takipEtAction($username)
     {
         $em=$this->getDoctrine()->getManager();
 
@@ -232,7 +237,7 @@ class DefaultController extends Controller
          * kullanıcı yı bul
          */
 
-        $kullanici = $em->getRepository('BlogBundle:User')->find($id);
+        $kullanici = $em->getRepository('BlogBundle:User')->findOneBy(array('username'=>$username));
 
         $yeni_takip = new Takip();
         $yeni_takip -> setTakipEden($this->getUser());
@@ -240,14 +245,15 @@ class DefaultController extends Controller
 
         $em->persist($yeni_takip);
         $em->flush();
-        return $this->redirectToRoute('blog_profil',array('id'=>$id));
+        return $this->redirectToRoute('blog_profil',array('username'=>$username));
     }
-    public function takipBirakAction($id)
+    public function takipBirakAction($username)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $takip=$em->getRepository('BlogBundle:Takip')->findOneBy(array('takip_eden'=>$this->getUser()));
+        $kullanici = $em->getRepository('BlogBundle:User')->findOneBy(array('username'=>$username));
 
+        $takip=$em->getRepository('BlogBundle:Takip')->findOneBy(array('takip_eden'=>$this->getUser(),'takip_edilen'=>$kullanici));
 
         $em->remove($takip);
         $em->flush();
