@@ -6,4 +6,7 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
-# todo : routing yml eklenmemiş (fos user kurulumu )
+
+# app/config/routing.yml
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
