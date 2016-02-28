@@ -11,8 +11,7 @@
 
         <b>{{ profil.username }}</b>
         <br>
-<<<<<<< HEAD
-        <a href="">Takip Et</a><br>
+       <br>
             Kullanıcının yazdığı yazılar
         <hr><br>
         {% for y in profiller.yazilar  %}
@@ -23,7 +22,6 @@
                 <a href="{{ path('blog_yazi_sil',{'id':y.id })}}">Yazimi Sil</a>
             {% endif %}<br>
 
-=======
         {% if app.user != profil %}
 
             {% if takip_ediyorsun == 1 %}
