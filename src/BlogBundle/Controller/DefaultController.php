@@ -195,5 +195,10 @@ class DefaultController extends Controller
 
     }
 
+    public function  profilAction($id)
+    {
+
+    }
+
 
 }

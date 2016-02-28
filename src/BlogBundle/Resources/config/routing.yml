@@ -26,3 +26,7 @@ blog_yazi_begen:
 blog_yazi_unlike:
     path:     /{id}/yazi-unlike
     defaults: { _controller: BlogBundle:Default:yaziUnlike }
+
+blog_profil:
+    path:     /{id}/profil
+    defaults: { _controller: BlogBundle:Default:profil }
