@@ -34,6 +34,12 @@ class Yorum
      */
     private $yazi;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\User", inversedBy="yorumlar")
+     * @ORM\JoinColumn(name="user_id",referencedColumnName="id",onDelete="CASCADE")
+     */
+    private $user;
+
 
     /**
      * Get id

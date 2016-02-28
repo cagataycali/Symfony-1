@@ -22,7 +22,24 @@
             <a href="{{ path('blog_yazi_sil',{'id':y.id })}}">Yazimi Sil</a>
         {% endif %}
         <br>
-            yorumlar
+            <b style="color:darkred;">yorumlar</b><br> <br>
+
+
+        {% for k in y.yorumlar  %}
+            {{ k.icerik }}
+               {% if k.user == app.user %}
+                   <a href="{{ path('blog_yorum_sil',{'id':k.id })}}">Yorumu Sil</a>
+               {% endif %}
+
+<br>
+        {% endfor %}
+
+        <form action="{{ path('blog_yazi_yorum') }}" method="post">
+            <input type="text" name="yorum" placeholder="yorum gir..">
+            <input type="hidden" name="yazi_id" value="{{ y.id }}">
+            <button type="submit">Yorum Gönder</button>
+        </form>
+
         <hr>
         <br>
 

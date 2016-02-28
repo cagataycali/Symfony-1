@@ -10,3 +10,12 @@ blog_yazi_ekle:
 blog_yazi_sil:
     path:     /{id}/yazi-sil
     defaults: { _controller: BlogBundle:Default:yaziSil}
+
+blog_yazi_yorum:
+    path:     /yorum-ekle
+    defaults: { _controller: BlogBundle:Default:yorumEkle }
+
+blog_yorum_sil:
+    path:     /{id}/yorum-sil
+    defaults: { _controller: BlogBundle:Default:yorumSil }
+

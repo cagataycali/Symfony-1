@@ -34,6 +34,12 @@ class Yorum
      */
     private $yazi;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\User", inversedBy="yorumlar")
+     * @ORM\JoinColumn(name="user_id",referencedColumnName="id",onDelete="CASCADE")
+     */
+    private $user;
+
 
     /**
      * Get id
@@ -91,5 +97,29 @@ class Yorum
     public function getYazi()
     {
         return $this->yazi;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \BlogBundle\Entity\User $user
+     *
+     * @return Yorum
+     */
+    public function setUser(\BlogBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \BlogBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
