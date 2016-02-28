@@ -22,10 +22,10 @@
         {% if app.user != profil %}
 
             {% if takip_ediyorsun == 1 %}
-                <a href="{{ path('blog_takip_bırak', {'username': profil.username}) }}">Takip bırak</a>
+                <a href="{{ path('blog_takip', {'username': profil.username}) }}">Takip bırak</a>
             {% else %}
 
-            <a href="{{ path('blog_takip_et', {'username': profil.username}) }}">Takip et</a>
+            <a href="{{ path('blog_takip', {'username': profil.username}) }}">Takip et</a>
 
             {% endif %}
         {% else %}

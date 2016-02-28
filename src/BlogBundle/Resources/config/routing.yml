@@ -31,10 +31,11 @@ blog_profil:
     path:     /profil/{username}
     defaults: { _controller: BlogBundle:Default:profil }
 
-blog_takip_et:
-    path:     /takip-et/{username}
-    defaults: { _controller: BlogBundle:Default:takipEt }
 
-blog_takip_bırak:
-    path:     /takip-birak/{username}
-    defaults: { _controller: BlogBundle:Default:takipBirak}
+blog_takip:
+    path:     /takip/{username}
+    defaults: { _controller: BlogBundle:Default:takip}
+
+blog_begen:
+    path:     /yazi-begen/{username}
+    defaults: { _controller: BlogBundle:Default:yaziBegen}
