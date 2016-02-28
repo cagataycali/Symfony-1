@@ -27,6 +27,11 @@ class User extends BaseUser
     private $yazilar;
 
     /**
+     * @ORM\OneToMany(targetEntity="BlogBundle\Entity\Begeni" , mappedBy="user")
+     */
+    private $begeniler;
+
+    /**
      * @ORM\OneToMany(targetEntity="Takip",mappedBy="takip_eden")
      */
     private $takip_edenler;
@@ -44,6 +49,7 @@ class User extends BaseUser
         $this->yazilar=new ArrayCollection();
         $this->takip_edenler=new ArrayCollection();
         $this->takip_edilenler=new ArrayCollection();
+        $this->begeniler = new ArrayCollection();
 
     }
 
@@ -149,5 +155,39 @@ class User extends BaseUser
     public function getYazilar()
     {
         return $this->yazilar;
+    }
+
+    /**
+     * Add begeniler
+     *
+     * @param \BlogBundle\Entity\Begeni $begeniler
+     *
+     * @return User
+     */
+    public function addBegeniler(\BlogBundle\Entity\Begeni $begeniler)
+    {
+        $this->begeniler[] = $begeniler;
+
+        return $this;
+    }
+
+    /**
+     * Remove begeniler
+     *
+     * @param \BlogBundle\Entity\Begeni $begeniler
+     */
+    public function removeBegeniler(\BlogBundle\Entity\Begeni $begeniler)
+    {
+        $this->begeniler->removeElement($begeniler);
+    }
+
+    /**
+     * Get begeniler
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBegeniler()
+    {
+        return $this->begeniler;
     }
 }

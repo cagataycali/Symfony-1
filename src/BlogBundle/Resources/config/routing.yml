@@ -19,3 +19,7 @@ blog_yorum_sil:
     path:     /{id}/yorum-sil
     defaults: { _controller: BlogBundle:Default:yorumSil }
 
+blog_yazi_begen:
+    path:     /{id}/yazi-begen
+    defaults: { _controller: BlogBundle:Default:yaziBegen }
+

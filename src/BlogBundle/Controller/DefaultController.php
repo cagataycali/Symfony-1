@@ -2,6 +2,7 @@
 
 namespace BlogBundle\Controller;
 
+use BlogBundle\Entity\Begeni;
 use BlogBundle\Entity\Yazi;
 use BlogBundle\Entity\Yorum;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -139,6 +140,34 @@ class DefaultController extends Controller
         return $this->redirectToRoute('blog_homepage');
 
     }
+
+    public function yaziBegenAction($id)
+    {
+        /**
+         * doctrine
+         */
+        $em = $this->getDoctrine()->getManager();
+
+        /**
+         * yaziyi bulalım
+         */
+
+        $yazi = $em->getRepository('BlogBundle:Yazi')->find($id);
+
+        $yeni_begeni = new Begeni();
+        $yeni_begeni -> setYazi($yazi);
+        $yeni_begeni -> setUser($this->getUser());
+
+        /**
+         * verıtanaına kayıt
+         */
+
+        $em->persist($yeni_begeni);
+        $em->flush();
+
+        return $this->redirectToRoute('blog_homepage');
+    }
+
 
 
 }

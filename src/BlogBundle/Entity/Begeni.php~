@@ -28,6 +28,12 @@ class Begeni
      */
     private $yazi;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\User",inversedBy="begeniler")
+     * @ORM\JoinColumn(name="user_id",referencedColumnName="id",onDelete="CASCADE")
+     */
+    private $user;
+
 
 
 

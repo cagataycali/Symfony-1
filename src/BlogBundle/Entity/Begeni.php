@@ -28,6 +28,12 @@ class Begeni
      */
     private $yazi;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\User",inversedBy="begeniler")
+     * @ORM\JoinColumn(name="user_id",referencedColumnName="id",onDelete="CASCADE")
+     */
+    private $user;
+
 
 
 
@@ -64,5 +70,29 @@ class Begeni
     public function getYazi()
     {
         return $this->yazi;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \BlogBundle\Entity\User $user
+     *
+     * @return Begeni
+     */
+    public function setUser(\BlogBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \BlogBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
