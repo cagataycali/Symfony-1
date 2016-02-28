@@ -116,4 +116,38 @@ class User extends BaseUser
     {
         return $this->takip_edilenler;
     }
+
+    /**
+     * Add yazilar
+     *
+     * @param \BlogBundle\Entity\Yazi $yazilar
+     *
+     * @return User
+     */
+    public function addYazilar(\BlogBundle\Entity\Yazi $yazilar)
+    {
+        $this->yazilar[] = $yazilar;
+
+        return $this;
+    }
+
+    /**
+     * Remove yazilar
+     *
+     * @param \BlogBundle\Entity\Yazi $yazilar
+     */
+    public function removeYazilar(\BlogBundle\Entity\Yazi $yazilar)
+    {
+        $this->yazilar->removeElement($yazilar);
+    }
+
+    /**
+     * Get yazilar
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getYazilar()
+    {
+        return $this->yazilar;
+    }
 }

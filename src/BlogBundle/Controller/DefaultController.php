@@ -11,7 +11,17 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('BlogBundle:Default:index.html.twig');
+        /**
+         *doctrine cagıralım
+         */
+        $em = $this->getDoctrine()->getManager();
+
+        /**
+         * yazilari bulalım
+         */
+        $yazi = $em->getRepository('BlogBundle:Yazi')->findAll();
+
+        return $this->render('BlogBundle:Default:index.html.twig',array('yazilar'=>$yazi));
     }
 
     public function yaziEkleAction(Request $request)
@@ -44,6 +54,23 @@ class DefaultController extends Controller
         $em->persist($yeni_yazi);
         $em->flush();
 
+        return $this->redirectToRoute('blog_homepage');
+    }
+
+    public function yaziSilAction($id)
+    {
+        /**
+         *doctrine cagıralım
+         */
+        $em = $this->getDoctrine()->getManager();
+
+        /**
+         * yaziyi bulalım
+         */
+        $yazi = $em->getRepository('BlogBundle:Yazi')->find($id);
+
+        $em->remove($yazi);
+        $em->flush();
         return $this->redirectToRoute('blog_homepage');
     }
 }
