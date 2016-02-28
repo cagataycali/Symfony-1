@@ -11,11 +11,17 @@
 
         <b>{{ profiller.username }}</b>
         <br>
-        <a href="">Takip Et</a>
+        <a href="">Takip Et</a><br>
+            Kullanıcının yazdığı yazılar
+        <hr><br>
+        {% for y in profiller.yazilar  %}
 
-        {% for y in profiller.username  %}
+            {{ y.icerik }}
 
-            {{ y.yazi }}
+            {% if y.user == app.user %}
+                <a href="{{ path('blog_yazi_sil',{'id':y.id })}}">Yazimi Sil</a>
+            {% endif %}<br>
+
 
         {% endfor %}
 

@@ -204,6 +204,7 @@ class DefaultController extends Controller
 
         $profil=$em->getRepository('BlogBundle:User')->find($id);
 
+
         /**
          * Profil sayfasınna üyenin profilini yolladık
          */

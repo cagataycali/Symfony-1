@@ -30,3 +30,4 @@ blog_yazi_unlike:
 blog_profil:
     path:     /{id}/profil
     defaults: { _controller: BlogBundle:Default:profil }
+
