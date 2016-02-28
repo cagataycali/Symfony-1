@@ -11,6 +11,10 @@
 
         <b>{{ profil.username }}</b>
         <br>
+       <br>
+            Kullanıcının yazdığı yazılar
+        <hr><br>
+        {% for y in profiller.yazilar  %}
 
         {% if app.user %}
 
@@ -21,7 +25,6 @@
             {% else %}
 
             <a href="{{ path('blog_takip', {'username': profil.username}) }}">Takip et</a>
-
 
             {% endif %}
         {% else %}
