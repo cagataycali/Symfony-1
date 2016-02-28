@@ -58,7 +58,7 @@
             Begeni sayısı : {{ y.begeniler|length }}
 
             {% for b in y.begeniler if b.user == app.user %}
-                <a href="{{ path('blog_yazi_unlike',{'id':y.id}) }}">Begenmekten Vazgec</a>
+                <a href="{{ path('blog_yazi_begen',{'id':y.id}) }}">Begenmekten Vazgec</a>
                 {% else %}
                     <a href="{{ path('blog_yazi_begen',{'id':y.id}) }}">Begen</a>
 

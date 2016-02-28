@@ -162,45 +162,34 @@ class DefaultController extends Controller
 
     public function yaziBegenAction($id)
     {
-        /**
-         * doctrine
-         */
         $em = $this->getDoctrine()->getManager();
 
-        /**
-         * yaziyi bulalım
-         */
-
-        $yazi = $em->getRepository('BlogBundle:Yazi')->find($id);
-
-        $yeni_begeni = new Begeni();
-        $yeni_begeni -> setYazi($yazi);
-        $yeni_begeni -> setUser($this->getUser());
-
-        /**
-         * verıtanaına kayıt
-         */
-
-        $em->persist($yeni_begeni);
-        $em->flush();
-
-        return $this->redirectToRoute('blog_homepage');
-    }
-
-    public function yaziUnlikeAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-       # $begeni=$em->getRepository('BlogBundle:Begeni')->find($id);
+        # $begeni=$em->getRepository('BlogBundle:Begeni')->find($id);
 
         $yazi = $em->getRepository('BlogBundle:Yazi')->find($id);
 
         $begeni=$em->getRepository('BlogBundle:Begeni')->findOneBy(array('yazi'=>$yazi, "user"=>$this->getUser()));
 
-        $em->remove($begeni);
-        $em->flush();
-        return $this->redirectToRoute('blog_homepage');
+        if($begeni)
+        {
+            $em->remove($begeni);
+            $em->flush();
+            return $this->redirectToRoute('blog_homepage');
+        }else
+        {
+            $yeni_begeni = new Begeni();
+            $yeni_begeni -> setYazi($yazi);
+            $yeni_begeni -> setUser($this->getUser());
 
+            /**
+             * verıtanaına kayıt
+             */
+
+            $em->persist($yeni_begeni);
+            $em->flush();
+
+            return $this->redirectToRoute('blog_homepage');
+        }
     }
 
 
@@ -217,6 +206,7 @@ class DefaultController extends Controller
         if($takip)
         {
             $takip_ediyorsun = 1;
+
         }
         else
         {
@@ -231,35 +221,32 @@ class DefaultController extends Controller
         return $this->render('BlogBundle:Default:profil.html.twig', array('profil'=>$profil,'takip_ediyorsun'=>$takip_ediyorsun));
 
     }
-    public function takipEtAction($username)
+
+    public function takipAction($username)
     {
+        /**
+         * doctine çağırıyoruz
+         */
         $em=$this->getDoctrine()->getManager();
 
-        /**
-         * kullanıcı yı bul
-         */
+        $profil=$em->getRepository('BlogBundle:User')->findOneBy(array('username'=>$username));
+        $takip = $em->getRepository('BlogBundle:Takip')->findOneBy(array('takip_eden'=>$this->getUser(),'takip_edilen'=>$profil));
 
-        $kullanici = $em->getRepository('BlogBundle:User')->findOneBy(array('username'=>$username));
+        if($takip)
+        {
+            $em->remove($takip);
+            $em->flush();
+            return $this->redirectToRoute('blog_homepage');
+        }else
+        {
+            $yeni_takip = new Takip();
+            $yeni_takip -> setTakipEden($this->getUser());
+            $yeni_takip ->setTakipEdilen($profil);
 
-        $yeni_takip = new Takip();
-        $yeni_takip -> setTakipEden($this->getUser());
-        $yeni_takip ->setTakipEdilen($kullanici);
-
-        $em->persist($yeni_takip);
-        $em->flush();
-        return $this->redirectToRoute('blog_profil',array('username'=>$username));
-    }
-    public function takipBirakAction($username)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $kullanici = $em->getRepository('BlogBundle:User')->findOneBy(array('username'=>$username));
-
-        $takip=$em->getRepository('BlogBundle:Takip')->findOneBy(array('takip_eden'=>$this->getUser(),'takip_edilen'=>$kullanici));
-
-        $em->remove($takip);
-        $em->flush();
-        return $this->redirectToRoute('blog_homepage');
+            $em->persist($yeni_takip);
+            $em->flush();
+            return $this->redirectToRoute('blog_profil',array('username'=>$username));
+        }
 
     }
 
