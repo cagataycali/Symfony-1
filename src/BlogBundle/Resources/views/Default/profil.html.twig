@@ -11,10 +11,11 @@
 
         <b>{{ profil.username }}</b>
         <br>
+
+        <a href="{{ path('fos_user_change_password') }}">Şifre değiştir</a>
        <br>
             Kullanıcının yazdığı yazılar
         <hr><br>
-        {% for y in profiller.yazilar  %}
 
         {% if app.user %}
 

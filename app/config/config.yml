@@ -7,7 +7,7 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: tr
 
 framework:
     #esi:             ~
@@ -61,16 +61,31 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
 
-# Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
     host:      "%mailer_host%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
-    spool:     { type: memory }
+    port : "%mailer_port%"
+    encryption: ssl
+    auth_mode:  login
 
 # app/config/config.yml
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: BlogBundle\Entity\User
+    service:
+            mailer: fos_user.mailer.default
+    resetting:
+        email:
+            from_email:
+                address:        kekblog20@gmail.com
+                sender_name:    Kek Blog şifre sıfırlama
+
+    registration:
+        confirmation:
+            enabled: true
+            from_email:
+                address:        kekblog20@gmail.com
+                sender_name:    Kek Blog Aktivasyon E-Postası
