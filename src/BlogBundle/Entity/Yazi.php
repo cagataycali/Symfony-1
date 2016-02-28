@@ -46,16 +46,11 @@ class Yazi
      */
     private $user;
 
-    /**
-     * @ORM\OneToMany(targetEntity="BlogBundle\Entity\U_Y_B" , mappedBy="yazi")
-     **/
-    private $uye_yazi_begenmeleri;
 
     public function __construct()
     {
         $this->yorumlar=new ArrayCollection();
         $this->begeniler=new ArrayCollection();
-        $this->uye_yazi_begenmeleri = new ArrayCollection();
     }
 
 

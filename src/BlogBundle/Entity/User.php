@@ -46,10 +46,7 @@ class User extends BaseUser
      */
     private $takip_edilenler;
 
-    /**
-     * @ORM\OneToMany(targetEntity="BlogBundle\Entity\U_Y_B" , mappedBy="user")
-     **/
-    private $uye_yazi_begenmeleri;
+
 
     public function __construct()
     {
@@ -60,7 +57,6 @@ class User extends BaseUser
         $this->takip_edenler=new ArrayCollection();
         $this->takip_edilenler=new ArrayCollection();
         $this->begeniler = new ArrayCollection();
-        $this->uye_yazi_begenmeleri = new ArrayCollection();
 
     }
 

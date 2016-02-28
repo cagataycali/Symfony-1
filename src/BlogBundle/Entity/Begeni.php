@@ -34,16 +34,6 @@ class Begeni
      */
     private $user;
 
-    /**
-     * @ORM\OneToMany(targetEntity="BlogBundle\Entity\U_Y_B" , mappedBy="begeniler")
-     **/
-    private $uye_yazi_begenmeleri;
-
-    public function __construct()
-    {
-        $this->uye_yazi_begenmeleri = new ArrayCollection();
-    }
-
 
 
     /**

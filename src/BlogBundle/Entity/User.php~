@@ -47,6 +47,7 @@ class User extends BaseUser
     private $takip_edilenler;
 
 
+
     public function __construct()
     {
         parent::__construct();

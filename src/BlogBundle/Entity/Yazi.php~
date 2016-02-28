@@ -46,6 +46,7 @@ class Yazi
      */
     private $user;
 
+
     public function __construct()
     {
         $this->yorumlar=new ArrayCollection();
