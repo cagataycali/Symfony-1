@@ -221,6 +221,7 @@ class DefaultController extends Controller
             $takip_ediyorsun = 0;
         }
 
+
         /**
          * Profil sayfasınna üyenin profilini yolladık
          */

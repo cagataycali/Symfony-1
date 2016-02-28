@@ -11,8 +11,8 @@
 
         <b>{{ profil.username }}</b>
         <br>
-        {% if app.user %}
 
+        {% if app.user %}
 
         {% if app.user != profil %}
 
@@ -21,6 +21,7 @@
             {% else %}
 
             <a href="{{ path('blog_takip_et', {'username': profil.username}) }}">Takip et</a>
+
 
             {% endif %}
         {% else %}
