@@ -1,1 +1,14 @@
-Hello World!
+{% extends "base.html.twig" %}
+
+{% block title  %}
+    Anasayfa
+{% endblock %}
+
+{% block body %}
+
+    <form action="{{ path('blog_yazi_ekle') }}" method="post">
+        <input type="text" name="yazi_icerik" placeholder="Yazinizi yazınız..">
+        <button type="submit">Gönder</button>
+    </form>
+
+{% endblock %}

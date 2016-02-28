@@ -33,5 +33,62 @@ class Takip
      */
     private $takip_edilen;
 
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set takipEden
+     *
+     * @param \BlogBundle\Entity\User $takipEden
+     *
+     * @return Takip
+     */
+    public function setTakipEden(\BlogBundle\Entity\User $takipEden = null)
+    {
+        $this->takip_eden = $takipEden;
+
+        return $this;
+    }
+
+    /**
+     * Get takipEden
+     *
+     * @return \BlogBundle\Entity\User
+     */
+    public function getTakipEden()
+    {
+        return $this->takip_eden;
+    }
+
+    /**
+     * Set takipEdilen
+     *
+     * @param \BlogBundle\Entity\User $takipEdilen
+     *
+     * @return Takip
+     */
+    public function setTakipEdilen(\BlogBundle\Entity\User $takipEdilen = null)
+    {
+        $this->takip_edilen = $takipEdilen;
+
+        return $this;
+    }
+
+    /**
+     * Get takipEdilen
+     *
+     * @return \BlogBundle\Entity\User
+     */
+    public function getTakipEdilen()
+    {
+        return $this->takip_edilen;
+    }
+}

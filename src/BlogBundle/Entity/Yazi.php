@@ -40,6 +40,12 @@ class Yazi
      */
     private $begeniler;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\User",inversedBy="yazilar")
+     * @ORM\JoinColumn(name="user_id",referencedColumnName="id",onDelete="CASCADE")
+     */
+    private $user;
+
     public function __construct()
     {
         $this->yorumlar=new ArrayCollection();
@@ -147,5 +153,29 @@ class Yazi
     public function getBegeniler()
     {
         return $this->begeniler;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \BlogBundle\Entity\User $user
+     *
+     * @return Yazi
+     */
+    public function setUser(\BlogBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \BlogBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
