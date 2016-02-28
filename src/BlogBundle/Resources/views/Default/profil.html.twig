@@ -9,8 +9,9 @@
 
          üyenin listeleneceği yer <br>
 
-        <b>{{ profiller.username }}</b>
+        <b>{{ profil.username }}</b>
         <br>
+<<<<<<< HEAD
         <a href="">Takip Et</a><br>
             Kullanıcının yazdığı yazılar
         <hr><br>
@@ -22,7 +23,29 @@
                 <a href="{{ path('blog_yazi_sil',{'id':y.id })}}">Yazimi Sil</a>
             {% endif %}<br>
 
+=======
+        {% if app.user != profil %}
 
+            {% if takip_ediyorsun == 1 %}
+                <a href="{{ path('blog_takip_bırak', {'id': profil.id}) }}">Takip bırak</a>
+            {% else %}
+
+            <a href="{{ path('blog_takip_et', {'id': profil.id}) }}">Takip et</a>
+>>>>>>> 8cf6b41ccae2c877771620711f4add0574034a48
+
+            {% endif %}
+        {% else %}
+            senin profilin
+        {% endif %}
+        <br>
+        <hr>
+        {% for y in profil.yazilar %}
+            {{ y.icerik }}
+            {% if y.user == app.user %}
+            <a href="{{ path('blog_yazi_sil',{'id':y.id })}}">Yazimi Sil</a>
+             {% endif %}
+            <br>
+            <hr>
         {% endfor %}
 
     </center>

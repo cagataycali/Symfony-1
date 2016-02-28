@@ -31,3 +31,13 @@ blog_profil:
     path:     /{id}/profil
     defaults: { _controller: BlogBundle:Default:profil }
 
+<<<<<<< HEAD
+=======
+blog_takip_et:
+    path:     /{id}/takip-et
+    defaults: { _controller: BlogBundle:Default:takipEt }
+
+blog_takip_bırak:
+    path:     /{id}/takip-birak
+    defaults: { _controller: BlogBundle:Default:takipBirak}
+>>>>>>> 8cf6b41ccae2c877771620711f4add0574034a48
