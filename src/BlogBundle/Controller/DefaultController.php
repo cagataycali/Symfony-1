@@ -3,6 +3,7 @@
 namespace BlogBundle\Controller;
 
 use BlogBundle\Entity\Begeni;
+use BlogBundle\Entity\Takip;
 use BlogBundle\Entity\Yazi;
 use BlogBundle\Entity\Yorum;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -195,8 +196,61 @@ class DefaultController extends Controller
 
     }
 
-    public function  profilAction($id)
+
+    public function profilAction($id)
     {
+        /**
+         * doctine çağırıyoruz
+         */
+        $em=$this->getDoctrine()->getManager();
+
+        $profil=$em->getRepository('BlogBundle:User')->find($id);
+        $takip = $em->getRepository('BlogBundle:Takip')->findOneBy(array('takip_eden'=>$this->getUser(),'takip_edilen'=>$profil));
+
+        if($takip)
+        {
+            $takip_ediyorsun = 1;
+        }
+        else
+        {
+            $takip_ediyorsun = 0;
+        }
+
+        /**
+         * Profil sayfasınna üyenin profilini yolladık
+         */
+
+        return $this->render('BlogBundle:Default:profil.html.twig', array('profil'=>$profil,'takip_ediyorsun'=>$takip_ediyorsun));
+
+    }
+    public function takipEtAction($id)
+    {
+        $em=$this->getDoctrine()->getManager();
+
+        /**
+         * kullanıcı yı bul
+         */
+
+        $kullanici = $em->getRepository('BlogBundle:User')->find($id);
+
+        $yeni_takip = new Takip();
+        $yeni_takip -> setTakipEden($this->getUser());
+        $yeni_takip ->setTakipEdilen($kullanici);
+
+        $em->persist($yeni_takip);
+        $em->flush();
+        return $this->redirectToRoute('blog_profil',array('id'=>$id));
+    }
+    public function takipBirakAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $takip=$em->getRepository('BlogBundle:Takip')->findOneBy(array('takip_eden'=>$this->getUser()));
+
+
+        $em->remove($takip);
+        $em->flush();
+        return $this->redirectToRoute('blog_homepage');
 
     }
 

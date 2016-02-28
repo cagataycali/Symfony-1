@@ -25,6 +25,7 @@
 
                     {{ mesaj|raw }}
 
+
                 {% endfor %}
 
             </div>
@@ -51,7 +52,7 @@
 
         {% for y in yazilar %}
 
-            <b>{{ y.user.username }} : </b>
+            <a href="{{ path('blog_profil',{ 'id':y.user.id }) }}">  <b>{{ y.user.username }} : </b>  </a>
             {{ y.icerik }}
 
             Begeni sayısı <br>

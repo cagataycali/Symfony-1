@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+
+{% block title  %}
+    Anasayfa
+{% endblock %}
+
+{% block body %}
+    <center>
+
+         üyenin listeleneceği yer <br>
+
+        <b>{{ profil.username }}</b>
+        <br>
+        {% if app.user != profil %}
+
+            {% if takip_ediyorsun == 1 %}
+                <a href="{{ path('blog_takip_bırak', {'id': profil.id}) }}">Takip bırak</a>
+            {% else %}
+
+            <a href="{{ path('blog_takip_et', {'id': profil.id}) }}">Takip et</a>
+
+            {% endif %}
+        {% else %}
+            senin profilin
+        {% endif %}
+        <br>
+        <hr>
+        {% for y in profil.yazilar %}
+            {{ y.icerik }}
+            {% if y.user == app.user %}
+            <a href="{{ path('blog_yazi_sil',{'id':y.id })}}">Yazimi Sil</a>
+             {% endif %}
+            <br>
+            <hr>
+        {% endfor %}
+
+    </center>
+{% endblock %}
