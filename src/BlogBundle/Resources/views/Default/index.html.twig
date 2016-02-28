@@ -55,16 +55,15 @@
             <a href="{{ path('blog_profil',{ 'username':y.user.username }) }}">  <b>{{ y.user.username }} : </b>  </a>
             {{ y.icerik }}
 
-            Begeni sayısı <br>
-            {{ y.begeniler|length }}
+            Begeni sayısı : {{ y.begeniler|length }}
+
             {% for b in y.begeniler if b.user == app.user %}
-
-                    Bunu Begendin
-
+                <a href="{{ path('blog_yazi_unlike',{'id':y.id}) }}">Begenmekten Vazgec</a>
                 {% else %}
-              Bunu beğen!!
+                    <a href="{{ path('blog_yazi_begen',{'id':y.id}) }}">Begen</a>
 
             {% endfor %}
+            <br>
 
             {% if y.user == app.user %}
                 <a href="{{ path('blog_yazi_sil',{'id':y.id })}}">Yazimi Sil</a>

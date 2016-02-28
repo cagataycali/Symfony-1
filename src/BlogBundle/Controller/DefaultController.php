@@ -193,7 +193,9 @@ class DefaultController extends Controller
 
        # $begeni=$em->getRepository('BlogBundle:Begeni')->find($id);
 
-        $begeni=$em->getRepository('BlogBundle:Begeni')->findOneBy(array('id'=>$id, "user"=>$this->getUser()));
+        $yazi = $em->getRepository('BlogBundle:Yazi')->find($id);
+
+        $begeni=$em->getRepository('BlogBundle:Begeni')->findOneBy(array('yazi'=>$yazi, "user"=>$this->getUser()));
 
         $em->remove($begeni);
         $em->flush();
