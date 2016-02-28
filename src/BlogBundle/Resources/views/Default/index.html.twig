@@ -29,13 +29,16 @@
        <b>{{ y.user.username }} : </b>
         {{ y.icerik }}
 
-       {% for b in y.begeniler %}
-            {% if b.user == app.user %}
-                Lıked
-                {% elseif  %}
-            {% endif %}
+           {% for b in y.begeniler %}
+               {% if b.user == app.user %}
+                   <a href="{{ path('blog_yazi_begen', {'id':y.id}) }}">Unliked</a>
+               {% endif %}
 
-        {% endfor %}
+               {% else %}
+                   <a href="{{ path('blog_yazi_begen', {'id':y.id}) }}">lıke</a>
+            {% endfor %}
+
+
 
 
 
@@ -51,8 +54,7 @@
                {% if k.user == app.user %}
                    <a href="{{ path('blog_yorum_sil',{'id':k.id })}}">Yorumu Sil</a>
                {% endif %}
-
-<br>
+        <br>
         {% endfor %}
 
         <form action="{{ path('blog_yazi_yorum') }}" method="post">
