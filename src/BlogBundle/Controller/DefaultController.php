@@ -69,7 +69,19 @@ class DefaultController extends Controller
         /**
          * yaziyi bulalım
          */
-        $yazi = $em->getRepository('BlogBundle:Yazi')->find($id);
+        $yazi = $em->getRepository('BlogBundle:Yazi')->findOneBy(array('id'=>$id, "user"=>$this->getUser()));
+
+        if(!$yazi)
+        {
+            // Flash Bag Mesajı
+            $this->get('session')->getFlashBag()->set(
+                'error',
+                'Sadece kendi yazılarınızı silebilirsiniz!'
+            );
+
+            return $this->redirectToRoute('blog_homepage');
+        }
+
 
         $em->remove($yazi);
         $em->flush();
@@ -129,7 +141,8 @@ class DefaultController extends Controller
          * hangi yorumu sileceğimizi buluyoruz
          */
 
-        $yorum = $em->getRepository('BlogBundle:Yorum')->find($id);
+        $yorum = $em->getRepository('BlogBundle:Yorum')->findOneBy(array('id'=>$id, "user"=>$this->getUser()));
+
 
         /**
          * remove fonksiyonu ile siliyoruz ve enter (flsuh) lıyoruz
@@ -172,7 +185,9 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $begeni=$em->getRepository('BlogBundle:Begeni')->find($id);
+       # $begeni=$em->getRepository('BlogBundle:Begeni')->find($id);
+
+        $begeni=$em->getRepository('BlogBundle:Begeni')->findOneBy(array('id'=>$id, "user"=>$this->getUser()));
 
         $em->remove($begeni);
         $em->flush();

@@ -7,6 +7,31 @@
 {% block body %}
     <center>
 
+
+        {% for tip, mesajlar in app.session.flashbag.all %}
+
+            <div class="alert alert-{{ (tip == 'error' ? 'danger' : 'success') }} alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+
+                {% for mesaj in mesajlar %}
+
+                    {% if tip == 'error' %}
+                        <i class="icon-exclamation-sign"></i>
+                        <strong>Dikkat!</strong>
+                    {% else %}
+                        <i class="icon-check"></i>
+                        <strong>Bilgi:</strong>
+                    {% endif %}
+
+                    {{ mesaj|raw }}
+
+                {% endfor %}
+
+            </div>
+
+        {% endfor %}
+
+
         {% if app.user %}
             <form action="{{ path('blog_yazi_ekle') }}" method="post">
                 <textarea name="yazi_icerik"  cols="30" rows="10" placeholder="Lutfen yazi giriniz."></textarea>
@@ -29,13 +54,14 @@
             <b>{{ y.user.username }} : </b>
             {{ y.icerik }}
 
+            Begeni sayısı <br>
+            {{ y.begeniler|length }}
+            {% for b in y.begeniler if b.user == app.user %}
 
+                    Bunu Begendin
 
-            {% for b in y.begeniler  %}
-
-                {{ b.user.id }}
                 {% else %}
-                Bunu ilk begenen sen ol !
+              Bunu beğen!!
 
             {% endfor %}
 
