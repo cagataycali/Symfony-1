@@ -168,6 +168,17 @@ class DefaultController extends Controller
         return $this->redirectToRoute('blog_homepage');
     }
 
+    public function yaziUnlikeAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $begeni=$em->getRepository('BlogBundle:Begeni')->find($id);
+
+        $em->remove($begeni);
+        $em->flush();
+        return $this->redirectToRoute('blog_homepage');
+
+    }
 
 
 }

@@ -7,68 +7,65 @@
 {% block body %}
     <center>
 
-    {% if app.user %}
-        <form action="{{ path('blog_yazi_ekle') }}" method="post">
-            <textarea name="yazi_icerik"  cols="30" rows="10" placeholder="Lutfen yazi giriniz."></textarea>
-            <br>
-            <button type="submit">Gönder</button>
-        </form>
+        {% if app.user %}
+            <form action="{{ path('blog_yazi_ekle') }}" method="post">
+                <textarea name="yazi_icerik"  cols="30" rows="10" placeholder="Lutfen yazi giriniz."></textarea>
+                <br>
+                <button type="submit">Gönder</button>
+            </form>
 
-   {% else %}
-        <b>Paylaşım yapabilmek için lütfen giriş yapınız !</b>
-        <a href="{{ path('fos_user_security_login') }}">Giriş yap</a>
+        {% else %}
+            <b>Paylaşım yapabilmek için lütfen giriş yapınız !</b>
+            <a href="{{ path('fos_user_security_login') }}">Giriş yap</a>
 
-    {% endif %}
+        {% endif %}
 
-    <br>
-    <br>
-    <hr>
+        <br>
+        <br>
+        <hr>
 
-    {% for y in yazilar %}
+        {% for y in yazilar %}
 
-       <b>{{ y.user.username }} : </b>
-        {{ y.icerik }}
+            <b>{{ y.user.username }} : </b>
+            {{ y.icerik }}
 
-           {% for b in y.begeniler %}
-               {% if b.user == app.user %}
-                   <a href="{{ path('blog_yazi_begen', {'id':y.id}) }}">Unliked</a>
-               {% endif %}
 
-               {% else %}
-                   <a href="{{ path('blog_yazi_begen', {'id':y.id}) }}">lıke</a>
+
+            {% for b in y.begeniler  %}
+
+                {{ b.user.id }}
+                {% else %}
+                Bunu ilk begenen sen ol !
+
             {% endfor %}
 
-
-
-
-
-        {% if y.user == app.user %}
-            <a href="{{ path('blog_yazi_sil',{'id':y.id })}}">Yazimi Sil</a>
-        {% endif %}
-        <br>
+            {% if y.user == app.user %}
+                <a href="{{ path('blog_yazi_sil',{'id':y.id })}}">Yazimi Sil</a>
+            {% endif %}
+            <br>
             <b style="color:darkred;">yorumlar :<br></b>
 
 
-        {% for k in y.yorumlar  %}
-            {{ k.icerik }}
-               {% if k.user == app.user %}
-                   <a href="{{ path('blog_yorum_sil',{'id':k.id })}}">Yorumu Sil</a>
-               {% endif %}
-        <br>
+            {% for k in y.yorumlar  %}
+                {{ k.icerik }}
+                {% if k.user == app.user %}
+                    <a href="{{ path('blog_yorum_sil',{'id':k.id })}}">Yorumu Sil</a>
+                {% endif %}
+                <br>
+            {% endfor %}
+
+            <form action="{{ path('blog_yazi_yorum') }}" method="post">
+                <input type="text" name="yorum" placeholder="yorum gir..">
+                <input type="hidden" name="yazi_id" value="{{ y.id }}">
+                <button type="submit">Yorum Gönder</button>
+            </form>
+
+            <hr>
+            <br>
+
+
         {% endfor %}
 
-        <form action="{{ path('blog_yazi_yorum') }}" method="post">
-            <input type="text" name="yorum" placeholder="yorum gir..">
-            <input type="hidden" name="yazi_id" value="{{ y.id }}">
-            <button type="submit">Yorum Gönder</button>
-        </form>
-
-        <hr>
-        <br>
-
-
-    {% endfor %}
-
-</center>
+    </center>
 
 {% endblock %}

@@ -71,4 +71,28 @@ class Begeni
     {
         return $this->yazi;
     }
+
+    /**
+     * Set user
+     *
+     * @param \BlogBundle\Entity\User $user
+     *
+     * @return Begeni
+     */
+    public function setUser(\BlogBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \BlogBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 }

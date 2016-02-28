@@ -23,3 +23,6 @@ blog_yazi_begen:
     path:     /{id}/yazi-begen
     defaults: { _controller: BlogBundle:Default:yaziBegen }
 
+blog_yazi_unlike:
+    path:     /{id}/yazi-unlike
+    defaults: { _controller: BlogBundle:Default:yaziUnlike }
