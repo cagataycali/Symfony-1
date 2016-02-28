@@ -5,11 +5,21 @@
 {% endblock %}
 
 {% block body %}
+    <center>
 
-    <form action="{{ path('blog_yazi_ekle') }}" method="post">
-        <input type="text" name="yazi_icerik" placeholder="Yazinizi yazınız..">
-        <button type="submit">Gönder</button>
-    </form>
+    {% if app.user %}
+        <form action="{{ path('blog_yazi_ekle') }}" method="post">
+            <textarea name="yazi_icerik"  cols="30" rows="10" placeholder="Lutfen yazi giriniz."></textarea>
+            <br>
+            <button type="submit">Gönder</button>
+        </form>
+
+   {% else %}
+        <b>Paylaşım yapabilmek için lütfen giriş yapınız !</b>
+        <a href="{{ path('fos_user_security_login') }}">Giriş yap</a>
+
+    {% endif %}
+
     <br>
     <br>
     <hr>
@@ -22,7 +32,7 @@
             <a href="{{ path('blog_yazi_sil',{'id':y.id })}}">Yazimi Sil</a>
         {% endif %}
         <br>
-            <b style="color:darkred;">yorumlar</b><br> <br>
+            <b style="color:darkred;">yorumlar :<br></b>
 
 
         {% for k in y.yorumlar  %}
@@ -46,6 +56,6 @@
 
     {% endfor %}
 
-
+</center>
 
 {% endblock %}
