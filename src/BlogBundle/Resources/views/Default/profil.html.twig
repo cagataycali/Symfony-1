@@ -5,18 +5,16 @@
 {% endblock %}
 
 {% block body %}
+    <a href="{{ path('blog_homepage') }}">Anasayfaya Geri Dön</a>
     <center>
 
-         üyenin listeleneceği yer <br>
-
         <b>{{ profil.username }}</b>
-        <br>
+
         {% if profil==app.user %}
 
         <a href="{{ path('fos_user_change_password') }}">Şifre değiştir</a>
         {% endif %}
        <br>
-            Kullanıcının yazdığı yazılar
         <hr><br>
 
         {% if app.user %}
@@ -36,6 +34,9 @@
         {% endif %}
         <br>
         <hr>
+        Kullanıcının yazdığı yazılar
+        <br>
+        <br>
         {% for y in profil.yazilar %}
             {{ y.icerik }}
             {% if y.user == app.user %}
