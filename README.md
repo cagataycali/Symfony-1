@@ -9,6 +9,7 @@ To do list
  4. Kayıt işlemi başarılı bir şekilde yapıldığında anasayfaya yönlendirilecek.
  5. Boş yazı ve yorum göderilimi engellenecek.
  6. Anasayfa ve profil sayfalarına yönlendirme linkleri eklenecek.
+ 7. Takip ettiğim insanların profilinde yorum yazma olsun.
 
 ----------
 
