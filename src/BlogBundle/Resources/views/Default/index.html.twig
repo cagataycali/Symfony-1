@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block body %}
+    <a style="float: right;" href="{{ path('fos_user_security_logout') }}">Çıkış Yap</a>
     <center>
-
 
         {% for tip, mesajlar in app.session.flashbag.all %}
 
@@ -43,6 +43,7 @@
         {% else %}
             <b>Paylaşım yapabilmek için lütfen giriş yapınız !</b>
             <a href="{{ path('fos_user_security_login') }}">Giriş yap</a>
+            <a href="{{ path('fos_user_registration_register') }}">Kayit Ol</a>
 
         {% endif %}
 
@@ -56,6 +57,7 @@
             {{ y.icerik }}
 
             Begeni sayısı : {{ y.begeniler|length }}
+            <br>
 
             {% for b in y.begeniler if b.user == app.user %}
                 <a href="{{ path('blog_yazi_begen',{'id':y.id}) }}">Begenmekten Vazgec</a>

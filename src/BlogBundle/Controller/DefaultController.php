@@ -40,29 +40,39 @@ class DefaultController extends Controller
 
         $yazi_icerik = $request->request->get('yazi_icerik');
 
-        /**
-         *Doctrine yardımcısını çağıralım
-         */
+        if(strlen(trim($yazi_icerik))==0)
+        {
+            // Flash Bag Mesajı
+            $this->get('session')->getFlashBag()->set(
+                'error',
+                'Boş Bir Yazi Göndermeye Çalıştınız.Lütfen Doldurarak Tekrar Deneyiniz ! '
+            );
+        }else
+        {
+            /**
+             *Doctrine yardımcısını çağıralım
+             */
 
-        $em=$this->getDoctrine()->getManager();
+            $em = $this->getDoctrine()->getManager();
 
-        /**
-         * yeni yazıyı ekleyelim
-         */
+            /**
+             * yeni yazıyı ekleyelim
+             */
 
-        $yeni_yazi=new Yazi();
+            $yeni_yazi = new Yazi();
 
-        $yeni_yazi->setIcerik($yazi_icerik);
-        $yeni_yazi->setUser($this->getUser());
+            $yeni_yazi->setIcerik($yazi_icerik);
+            $yeni_yazi->setUser($this->getUser());
 
-        /**
-         * post edilen verileri database e kaydedicez
-         */
+            /**
+             * post edilen verileri database e kaydedicez
+             */
 
-        $em->persist($yeni_yazi);
-        $em->flush();
+            $em->persist($yeni_yazi);
+            $em->flush();
+        }
+            return $this->redirectToRoute('blog_homepage');
 
-        return $this->redirectToRoute('blog_homepage');
     }
 
     public function yaziSilAction($id)
@@ -103,34 +113,44 @@ class DefaultController extends Controller
         $yorum=$request->request->get('yorum');
         $yazi_id=$request->request->get('yazi_id');
 
-        /**
-         * doctrine çağırıyoruz
-         */
+        if(strlen(trim($yorum))==0)
+        {
+            // Flash Bag Mesajı
+            $this->get('session')->getFlashBag()->set(
+                'error',
+                'Boş bir yorum göndermeye çalıştın!Alanları doldurup tekrar deneyiniz.'
+            );
 
-        $em=$this->getDoctrine()->getManager();
+            return $this->redirectToRoute('blog_homepage');
+        }else {
+            /**
+             * doctrine çağırıyoruz
+             */
 
-        /**
-         * yazimizi yazi entitisinden buluyoruz
-         */
+            $em = $this->getDoctrine()->getManager();
 
-        $yazi=$em->getRepository('BlogBundle:Yazi')->find($yazi_id);
+            /**
+             * yazimizi yazi entitisinden buluyoruz
+             */
 
-        /**
-         * yeni yorumu atıyoruz.
-         */
+            $yazi = $em->getRepository('BlogBundle:Yazi')->find($yazi_id);
 
-        $yeni_yorum =new Yorum();
-        $yeni_yorum->setIcerik($yorum);
-        $yeni_yorum->setYazi($yazi);
-        $yeni_yorum->setUser($this->getUser());
+            /**
+             * yeni yorumu atıyoruz.
+             */
 
-        /**
-         * veri tabanına gönderiyoruz
-         */
+            $yeni_yorum = new Yorum();
+            $yeni_yorum->setIcerik($yorum);
+            $yeni_yorum->setYazi($yazi);
+            $yeni_yorum->setUser($this->getUser());
 
-        $em->persist($yeni_yorum);
-        $em->flush();
+            /**
+             * veri tabanına gönderiyoruz
+             */
 
+            $em->persist($yeni_yorum);
+            $em->flush();
+        }
         return $this->redirectToRoute('blog_homepage');
 
     }
